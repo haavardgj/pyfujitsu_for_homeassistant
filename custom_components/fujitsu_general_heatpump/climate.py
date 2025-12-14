@@ -10,12 +10,12 @@ from pyfujitseu.splitAC import splitAC
 
 from homeassistant.components.climate import ClimateEntity, PLATFORM_SCHEMA
 from homeassistant.components.climate.const import (
-    HVAC_MODE_OFF,
-    HVAC_MODE_HEAT,
-    HVAC_MODE_COOL,
-    HVAC_MODE_AUTO,
-    HVAC_MODE_DRY,
-    HVAC_MODE_FAN_ONLY,  
+    HVACMode.OFF,
+    HVACMode.HEAT,
+    HVACMode.COOL,
+    HVACMode.AUTO,
+    HVACMode.DRY,
+    HVACMode.FAN_ONLY,  
     SUPPORT_FAN_MODE,
     SUPPORT_SWING_MODE,
     SUPPORT_TARGET_TEMPERATURE,  
@@ -111,7 +111,7 @@ class FujitsuClimate(ClimateEntity):
         self._swing_mode = self.swing_mode
       
         self._fan_modes = [FUJITSU_FAN_TO_HA['Quiet'], FAN_LOW, FAN_MEDIUM, FAN_HIGH, FAN_AUTO]
-        self._hvac_modes = [HVAC_MODE_HEAT, HVAC_MODE_COOL, HVAC_MODE_AUTO, HVAC_MODE_DRY, HVAC_MODE_FAN_ONLY, HVAC_MODE_OFF]
+        self._hvac_modes = [HVACMode.HEAT, HVACMode.COOL, HVACMode.AUTO, HVACMode.DRY, HVACMode.FAN_ONLY, HVACMode.OFF]
         self._swing_modes = ['Horizontal' ,'Down', 'Unknown', 'Swing' ]
         self._on = self.is_on
         
@@ -166,7 +166,7 @@ class FujitsuClimate(ClimateEntity):
     def set_hvac_mode(self, hvac_mode):
         """Set HVAC mode."""
         _LOGGER.debug("FujitsuClimate set_hvac_mode called. self._hvac_mode: %s ; hvac_mode: %s", self._hvac_mode, hvac_mode)
-        if(hvac_mode == HVAC_MODE_OFF):
+        if(hvac_mode == HVACMode.OFF):
             self._fujitsu_device.turnOff()
         elif(self._hvac_mode != hvac_mode):
             _LOGGER.debug("FujitsuClimate set_hvac_mode elif path called. ")
